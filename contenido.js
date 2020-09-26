@@ -7,7 +7,7 @@ SVG significa Scalable Vector Graphics.
 */
 var svgWidth = 1495, svgHeight = 675;
 
-var barWidth = (svgWidth / cantones.length);
+var barWidth = (svgWidth / arregloPaises.length);
 
 var colorFigura = "#80ff00";
 
@@ -102,7 +102,7 @@ var symbol = d3.symbol()
 
 var path = svg
     .selectAll('path')
-    .data(cantones)
+    .data(arregloPaises)
     .enter()
     .append('path')
     .attr('d', symbol)
