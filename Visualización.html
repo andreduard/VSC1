@@ -1,0 +1,70 @@
+﻿<!DOCTYPE html>
+<!-- Este es el archivo que se utiliza para abrir el contenido -->
+<html lang="es" xmlns="http://www.w3.org/1999/xhtml">
+    <head> <!-- La sección meta información del documento -->
+        <meta charset="utf-8" />
+        <!-- Esto define que para el estilo de la página se usará estilo.css -->
+        <link rel="stylesheet" href="estilo.css">
+        <title>Primer Proyecto Corto de Visualización de Información</title>
+    </head>
+    <body>
+        <h1 class="headers">Información de cantones de Costa Rica</h1>
+        <!-- Esto es para colocar justo aquí la Visualización hecha en d3, las
+        dimensiones se definieron dentro del archivo de javascript-->
+        
+        <div id = "cuerpo">
+            <svg class="visualizacion"></svg><br>
+			
+            <div id="contenedor">
+				
+				
+                <br>
+
+                <input type="checkbox" name="nombreFigura"  id = "3DE" , value="3D",  onchange = "mostrar3d()" /> Efecto 3D
+
+                <input type="checkbox" name="nombreFigura"  id = "brillos" , value="brillo",  onchange = "mostrarBrillo()" /> Brillo
+
+                <br>
+                
+                Color de las figuras: <input type="color" id="CambiadorColor" value="#80ff00" onchange="cambiarColor(this)" /><br>
+              
+                Tamaño de las figuras: <input type="range" id="tamanhoFigura" 
+                onchange="cambioTamanho(this)" , value="25" max="50" min="10"/><br>
+
+                Tamaño: <label id="lblTamanno"> 25 </label> <br>
+				
+            </div>
+
+            <div id = "mostrarInfo">
+                <strong style='color:white'>Canton: </strong>
+                <label id="infoNombre" class="mostradorInfo"></label><br>
+
+                <strong style='color:white'>Poblacion: </strong>
+                <label id="infoPoblacion" class="mostradorInfo"></label><br>
+
+                <strong style='color:white'>Area: </strong>
+                <label id="infoArea" class="mostradorInfo"></label><br>
+
+                <strong style='color:white'>Densidad: </strong>
+                <label id="infoDensidad" class="mostradorInfo"></label><br>
+
+            </div>
+
+        </div>
+        <!-- Para importar la librería de d3 -->
+        <script type="text/javascript" src="https://d3js.org/d3.v5.min.js"></script>
+        <!-- Para usar tooltips: https://github.com/VACLab/d3-tip-->
+        <script type="text/javascript" src="d3-tip.js"></script>
+        <!-- Para los datos-->
+        <script type="text/javascript" src="datos.js"></script>
+        <!-- Para las funciones auxiliares-->
+        <script type="text/javascript" src="funciones.js"></script>
+        <!-- Para modificar el svg utilizando javascript plano -->
+        <script type="text/javascript" src="contenido.js"></script>
+    </body>
+
+    <footer>
+            <h4 class="piePag">Informacion a tomar encuenta</h4>
+            <p class="piePag">La informacion brindada y desplegada es de el censo de repoblaccenso con fecha de Noviebre del año 2011</p>
+    </footer>
+</html>

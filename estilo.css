@@ -1,0 +1,118 @@
+
+/*
+Este es el archivo que muestra cómo se mostrará el html, usando css
+*/
+
+.header{
+    font-family:sans-serif;
+    color:white;
+}
+.visualizacion {
+    background-color: #C7D9D9;
+    margin: 15px;
+}
+
+.figure{
+    fill:#80ff00;
+}
+
+
+
+.d3-tip {
+    line-height: 1;
+    font-weight: bold;
+    padding: 12px;
+    background: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    border-radius: 2px;
+}
+
+.d3-tip:after{
+    box-sizing: border-box;
+    display: inline;
+    font-size: 10px;
+    width: 100%;
+    line-height: 1;
+    color: rgba(0, 0, 0, 0.8);
+    content: "\25BC";
+    position: absolute;
+    text-align: center;
+}
+.d3-tip.n:after{
+    margin: -1px 0 0 0;
+    top: 100%;
+    left: 0;
+
+}
+
+
+#contenedor {
+    /*background-color:blue;*/
+    width: 300px;
+    height: 150px;
+    position: absolute;
+    margin-top: -505px;
+    margin-left: 1500px;
+    border: 1px solid gray;
+    background-color: rgba(0,0,0,0.4);
+
+}
+
+#btnColor{
+   margin-left:15px;
+}
+
+#mostrarInfo{
+    width: 300px;
+    height: 75px;
+    position: absolute;
+    margin-top: -355px;
+    margin-left: 1500px;
+    border: 1px solid gray;
+    background-color: rgba(0,0,0,0.8);
+}
+
+.mostradorInfo{
+    color: rgb(255,0,0);
+
+}
+
+body{
+    background-image: url("full-bloom.png");
+    /*text-align: center;*/
+}
+
+h1{
+     text-align: center;
+     color: rgb(110,110,110);
+     background-color: rgba(220,220,220,0.6);
+     width: 100%;
+}
+
+#cuerpo{
+    background-color: rgba(220,220,220,0.7);
+    height: 700px;
+    width: 80%;
+     
+    min-width: 910px;
+
+    margin-right: auto;
+    margin-left: auto;
+}
+
+footer{
+     background-color: rgba(50,50,50,0.5);
+     height: 75px;
+     width: 97%;
+
+    min-width: 910px;
+    position: fixed;
+     bottom: 0;             
+}
+
+
+
+.piePag{
+    color: white;
+    margin-top: 5px;
+}
