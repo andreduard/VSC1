@@ -5,26 +5,43 @@
 
 var arregloPaises = [];
 var data = [];
-d3.csv("https://raw.githubusercontent.com/andreduard/VSC1/master/data.csv", function(data){
-    console.log(data)
-	arregloPaises.push(data);
+var poblaciones = [];
+var areas = [];
+var densidades = [];
+d3.csv("https://raw.githubusercontent.com/andreduard/VSC1/master/data.csv",function(data){
+	arregloPaises.push({
+	"Country":data["Country"],
+	"Population": parseFloat(data["Population"]),
+	"TotalBiocapacity": parseFloat(data["TotalBiocapacity"]),
+	"TotalEcologicalFootprint":parseFloat(data["TotalEcologicalFootprint"])
+	});	
 
-});
-
-
+}).then(function(){
+		console.log(arregloPaises)
+		for (i = 0; i < arregloPaises.length; i++) {
+		poblaciones.push(arregloPaises[i]["Population"]);
+		areas.push(arregloPaises[i]["TotalBiocapacity"]);
+		densidades.push(arregloPaises[i]["TotalEcologicalFootprint"]);
+		}
+		
+}
+	);
 
 
 
 //Necesito estos 3 arreglos para poder tener los valores m\u00E1ximos de cada uno, as\u00ED como el valor m\u00EDnimo
 //de las densidades
-var poblaciones = [];
-var areas = [];
-var densidades = [];
-for (i = 0; i < data2.length; i++) {
-    poblaciones.push(data[i][1]);
-    areas.push(data[i][3]);
-    densidades.push(data[i][2]);
-}
+// var poblaciones = [];
+// var areas = [];
+// var densidades = [];
+// for (i = 0; i < arregloPaises.length; i++) {
+    // poblaciones.push(arregloPaises[i].Population);
+    // areas.push(arregloPaises[i].TotalBiocapacity);
+    // densidades.push(arregloPaises[i].TotalEcologicalFootprint);
+	
+	// console.log(poblaciones);
+	
+// }
 
 
 
