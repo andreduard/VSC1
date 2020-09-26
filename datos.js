@@ -121,6 +121,6 @@ for (i = 0; i < cantones.length; i++) {
 }
 
 var data = [];
-d3.csv("data.csv", function(data){
+d3.csv("https://raw.githubusercontent.com/andreduard/VSC1/master/data.csv", function(data){
     console.log(data)
 });
