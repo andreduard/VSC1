@@ -5,8 +5,8 @@
 var arregloPaises = [];
 var data = [];
 var poblaciones = [];
-var areas = [];
-var densidades = [];
+var areaBiocapacidad = [];
+var footprintTotal = [];
 var mi3d="off";
 
 var brilloFiguras="off";
@@ -22,8 +22,8 @@ d3.csv("https://raw.githubusercontent.com/andreduard/VSC1/master/data.csv",funct
 		console.log(arregloPaises)
 		for (i = 0; i < arregloPaises.length; i++) {
 		poblaciones.push(arregloPaises[i]["Population"]);
-		areas.push(arregloPaises[i]["TotalBiocapacity"]);
-		densidades.push(arregloPaises[i]["TotalEcologicalFootprint"]);
+		areaBiocapacidad.push(arregloPaises[i]["TotalBiocapacity"]);
+		footprintTotal.push(arregloPaises[i]["TotalEcologicalFootprint"]);
 		}
 
 /*
@@ -53,7 +53,7 @@ var xScale = d3.scaleLinear()
     .range([40, svgWidth*0.90 ,svgWidth-20]);
 
 var yScale = d3.scaleLinear()
-    .domain([max(d3.min(areas) - 50, 0), 30,d3.max(areas) + 5])
+    .domain([max(d3.min(areaBiocapacidad) - 50, 0), 30,d3.max(areaBiocapacidad) + 5])
     //Nótese que el rango en Y es alrevez que el rango en X
     .range([svgHeight-20, svgHeight*0.20,0]);
 
@@ -66,7 +66,7 @@ var multiplicadorMaximo = 30; //Estas dos variables se podrá modificar en ejecu
 var tamanhoBase = 25;
 
 var sizeScale = d3.scaleLinear()
-    .domain([d3.min(densidades), d3.max(densidades)])
+    .domain([d3.min(footprintTotal), d3.max(footprintTotal)])
     .range([5, multiplicadorMaximo]);
 
 //Ahora defino los dos ejes
