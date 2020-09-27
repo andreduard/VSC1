@@ -51,8 +51,8 @@ Este es el archivo que muestra cómo se mostrará el html, usando css
     width: 300px;
     height: 150px;
     position: absolute;
-    margin-top: -505px;
-    margin-left: 1500px;
+    margin-top: -695px;
+    margin-left: 1210px;
     border: 1px solid gray;
     background-color: rgba(0,0,0,0.4);
 
@@ -66,8 +66,8 @@ Este es el archivo que muestra cómo se mostrará el html, usando css
     width: 300px;
     height: 75px;
     position: absolute;
-    margin-top: -355px;
-    margin-left: 1500px;
+    margin-top: -695px;
+    margin-left: 1210px;
     border: 1px solid gray;
     background-color: rgba(0,0,0,0.8);
 }

@@ -1,6 +1,31 @@
 
 //Este archivo define cómo se muestra el contenido del gráfico, cuyos datos se encuentran en datos.js.
 
+
+var arregloPaises = [];
+var data = [];
+var poblaciones = [];
+var areas = [];
+var densidades = [];
+var mi3d="off";
+
+var brilloFiguras="off";
+d3.csv("https://raw.githubusercontent.com/andreduard/VSC1/master/data.csv",function(data){
+	arregloPaises.push({
+	"Country":data["Country"],
+	"Population": parseFloat(data["Population"]),
+	"TotalBiocapacity": parseFloat(data["TotalBiocapacity"]),
+	"TotalEcologicalFootprint":parseFloat(data["TotalEcologicalFootprint"])
+	});	
+
+}).then(function(){
+		console.log(arregloPaises)
+		for (i = 0; i < arregloPaises.length; i++) {
+		poblaciones.push(arregloPaises[i]["Population"]);
+		areas.push(arregloPaises[i]["TotalBiocapacity"]);
+		densidades.push(arregloPaises[i]["TotalEcologicalFootprint"]);
+		}
+
 /*
 Ahora colocar las dimensiones específicas del svg, que es donde dibujaré todo
 SVG significa Scalable Vector Graphics.
@@ -24,34 +49,30 @@ var svg = d3.select('svg')
 //Necesito dos escaladores que me permitan escalar los datos en ejecución
 //Uno para el eje X y otro para el eje Y
 var xScale = d3.scaleLinear()
-    .domain([max(d3.min(poblaciones) - 5000, 0), d3.max(poblaciones) + 5000])//estos 5000 es para dejar algo de espacio extra
-    .range([40, svgWidth-20]);
+    .domain([max(d3.min(poblaciones) - 50, 0), 200,d3.max(poblaciones) + 20])//estos 5000 es para dejar algo de espacio extra
+    .range([40, svgWidth*0.90 ,svgWidth-20]);
 
 var yScale = d3.scaleLinear()
-    .domain([max(d3.min(areas) - 50, 0), d3.max(areas) + 100])
+    .domain([max(d3.min(areas) - 50, 0), 30,d3.max(areas) + 5])
     //Nótese que el rango en Y es alrevez que el rango en X
-    .range([svgHeight-20, 0]);
+    .range([svgHeight-20, svgHeight*0.20,0]);
 
 /*
 Ahora necesito un nuevo escalador para evitar que una burbuja sea insignificantemente pequeña, o gigantesca
 Para esto declaro una variable que luego multiplicaré con el tamaño base de las burbujas.
 Para esto defino una variable que me diga el radio mínimo, el radio máximo, y finalmente el tamaño base.
 */
-var multiplicadorMaximo = 10; //Estas dos variables se podrá modificar en ejecución
-var valorSlider = document.getElementById('tamanhoFigura').value;
-var tamanhoBase = parseInt(valorSlider);
+var multiplicadorMaximo = 30; //Estas dos variables se podrá modificar en ejecución
+var tamanhoBase = 25;
 
 var sizeScale = d3.scaleLinear()
     .domain([d3.min(densidades), d3.max(densidades)])
     .range([5, multiplicadorMaximo]);
 
-var barSizeScale = d3.scaleLinear()
-    .domain([d3.min(densidades), d3.max(densidades)])
-    .range([1, 2]);
-
 //Ahora defino los dos ejes
 var eje_x = d3.axisBottom()
     .scale(xScale);
+	
 var eje_y = d3.axisLeft()
     .scale(yScale);
 
@@ -78,10 +99,10 @@ var tip = d3.tip()
     .attr('class', 'd3-tip')
     .offset([-10, 0])
     .html(function (d) {
-        return "<strong>Cant\u00F3n:</strong> <span style='color:red'>" + d.nombre + "</span> <br>" +
-            "<strong>Poblaci\u00F3n:</strong> <span style='color:red'>" + d.poblacion + " habitantes</span> <br>" +
-            "<strong>\u00C1rea:</strong> <span style='color:red'>" + d.area + " km²</span> <br>" +
-            "<strong>Densidad:</strong> <span style='color:red'>" + d.densidad + " habitantes/km²</span> <br>";
+        return "<strong>Cant\u00F3n:</strong> <span style='color:red'>" + d.Country + "</span> <br>" +
+            "<strong>Poblaci\u00F3n:</strong> <span style='color:red'>" + d.Population + " habitantes</span> <br>" +
+            "<strong>\u00C1rea:</strong> <span style='color:red'>" + d.TotalBiocapacity + " km²</span> <br>" +
+            "<strong>Densidad:</strong> <span style='color:red'>" + d.TotalEcologicalFootprint + " habitantes/km²</span> <br>";
     });
 
 //Aplico los tooltips
@@ -97,7 +118,7 @@ var symbol = d3.symbol()
     .type(d3.symbolCircle)
     //.type(rectangulo)
     .size(function (d) {
-        return tamanhoBase * sizeScale(d.densidad);
+        return tamanhoBase * sizeScale(d.TotalEcologicalFootprint);
     });
 
 var path = svg
@@ -105,57 +126,33 @@ var path = svg
     .data(arregloPaises)
     .enter()
     .append('path')
-    .attr('d', symbol)
-    .attr('class', 'figure')
+	.attr('d',symbol)
+	.attr('class','figure')
     .attr('id', function (d) {
-        return d.nombre;
+        return d.Country;
     })
-    .attr('transform', function (d) { return 'translate(' + xScale(d.poblacion) + ',' + yScale(d.area) + ')'; })
+    .attr('transform', function (d) { return 'translate(' + xScale(d.Population) + ',' + yScale(d.TotalBiocapacity) + ')'; })
     .attr('stroke', 'black')
     .attr('fill-opacity', 0.4)
     .on("mouseover", function(d,i){
-        if(mi3d=="off"){
-            d3.select(this)
-            .transition()
-            .attr('fill-opacity', 1.0)
-            .style("fill","black");
-            ;
-        }
-        else{
-            d3.select(this)
-            .transition()
-            .attr('fill-opacity', 0.8)
-            .style("fill","white");
-            ;   
-        }
+		d3.select(this)
+		.transition()
+		.attr('fill-opacity', 0.8)
+		.style("fill","white");
         
-        document.getElementById("infoNombre").innerHTML = d.nombre;
-        document.getElementById("infoPoblacion").innerHTML = d.poblacion;
-        document.getElementById("infoArea").innerHTML = d.area;
-        document.getElementById("infoDensidad").innerHTML = d.densidad;
+        document.getElementById("infoNombre").innerHTML = d.Country;
+        document.getElementById("infoPoblacion").innerHTML = d.Population;
+        document.getElementById("infoArea").innerHTML = d.TotalBiocapacity;
+        document.getElementById("infoDensidad").innerHTML = d.TotalEcologicalFootprint;
         tip.show;
     })
     .on("mouseout", function(d,i){
-        
-        if(mi3d=="off"){
-            colorFigura = document.getElementById("CambiadorColor").value;
-            
-            if(brilloFiguras=="off"){
-                d3.select(this).transition().attr('fill-opacity', 0.4)
-                .style("fill", colorFigura);
-            }
-            else{
-                d3.select(this).transition().attr('fill-opacity', 0.9)
-                .style("fill", colorFigura);
-            }
-        }
-        else{
-            path.transition().style("fill","url(#gradient)")
-            .attr('fill-opacity', 0.9);
-            mi3d="on";
-        }
-
-
+        	
+		colorFigura = "#80ff00";
+		
+		d3.select(this).transition().attr('fill-opacity', 0.4)
+		.style("fill", colorFigura);
+	
     });
 
     var gradient = svg.append("svg:defs")
@@ -181,6 +178,9 @@ var path = svg
         .attr("stop-color", "black")
     .attr("stop-opacity", 1);
 
-    var mi3d="off";
+		
+	}	
 
-    var brilloFiguras="off";
+);
+
+

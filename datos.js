@@ -3,6 +3,7 @@
 //Tengo que colocar las variables del Xlsx suministrado en el repositorio aqu\u00ED:
 //https://es.wikipedia.org/wiki/Anexo:Cantones_de_Costa_Rica_por_poblaci\u00F3n
 
+
 var arregloPaises = [];
 var data = [];
 var poblaciones = [];
@@ -26,7 +27,6 @@ d3.csv("https://raw.githubusercontent.com/andreduard/VSC1/master/data.csv",funct
 		
 }
 	);
-
 
 
 //Necesito estos 3 arreglos para poder tener los valores m\u00E1ximos de cada uno, as\u00ED como el valor m\u00EDnimo
